@@ -29,7 +29,6 @@ int main() {
     
     int intNumberToTest;
     
-    cout << "1 is prime\n"; // Special case for first number not accounted for by loop
     
     // Loop to test integers 1 through 100,
     // will return true/false isPrime for this range
@@ -49,19 +48,26 @@ bool testPrime(int intNumberToTest)
     
     for(int j = 1 ; j <= intNumberToTest ; j++)
     {
-        intRemainder = intNumberToTest % j;
-        
-        // Output result to console
-        if(intRemainder == 0 && j != intNumberToTest && j != 1) // Need to exclude divisible by one
-                                                                // means we can't test 1 here, hence
-                                                                // special case earlier
-        {
-            cout << intNumberToTest << " is not prime" << endl;
-            break;
+        if(intNumberToTest != 1)
+            {
+            intRemainder = intNumberToTest % j;
+            
+            // Output result to console
+            if(intRemainder == 0 && j != intNumberToTest && j != 1) // Need to exclude divisible by one
+                                                                    // means we can't test 1 here, hence
+                                                                    // special case later
+            {
+                cout << intNumberToTest << " is not prime" << endl;
+                break;
+            }
+            else if(intRemainder == 0 && j == intNumberToTest && j != 1)
+            {
+                cout << intNumberToTest << " is prime" << endl;
+            }
         }
-        else if(intRemainder == 0 && j == intNumberToTest && j != 1)
+        else
         {
-            cout << intNumberToTest << " is prime" << endl;
+           cout << "1 is prime\n"; // Special case for first number not accounted for by loop
         }
     }
     
