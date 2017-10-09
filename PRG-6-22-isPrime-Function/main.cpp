@@ -18,12 +18,14 @@
 //  if num1 is evenly divisible by num2.
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 // Simple, function tests number then returns
 // true/false based on outcome of the test
-void testPrime(int);
+void testPrime(const int, vector<int> &);
+void printPrimes(const vector<int>);
 
 int main() {
     
@@ -32,29 +34,44 @@ int main() {
     
     // Define highest number to test here,
     // in this case (according to the prompt)
-    // it's just 100. Easy to modify.
-    const int INT_HIGHEST_NUM_TO_TEST = 100;
+    // let user decide this number.
+    int intHighestNumberToTest;
     
     // Declare number to test and pass along
     // to testPrime(int)
     int intNumberToTest;
     
+    // Create empty vector to hold all prime
+    // numbers that are discovered
+    vector<int> vecPrimesArray;
+    
+    cout << "Please enter a positive integer. This program\n";
+    cout << "finds primes between 1 and your number:\n";
+    cin >> intHighestNumberToTest;
+    while(!cin || intHighestNumberToTest <= 1 || intHighestNumberToTest > 99999999)
+    {
+        cout << "Please enter a positive integer:\n";
+        cin.clear();
+        cin.ignore();
+        cin >> intHighestNumberToTest;
+    }
+    
     // Define intNumberToTest in this for loop.
     // Loop to test integers 1 through 100,
     // will return true/false isPrime for this range
-    for(int i = 0 ; i <= INT_HIGHEST_NUM_TO_TEST ; i++)
+    for(int i = 0 ; i <= intHighestNumberToTest ; i++)
     {
         intNumberToTest = i;
         
-        // isPrime = testPrime(intNumberToTest);
-        
-        testPrime(intNumberToTest);
+        testPrime(intNumberToTest, vecPrimesArray);
     }
+    
+    printPrimes(vecPrimesArray);
     
     return 0;
 }
 
-void testPrime(int intNumberToTest)
+void testPrime(const int intNumberToTest, vector<int> &refPrimes)
 {
     int intRemainder;
     
@@ -64,23 +81,36 @@ void testPrime(int intNumberToTest)
             {
             intRemainder = intNumberToTest % j;
             
-            // Output result to console
+            // First case: a number divides this before we get to
+            // the number we're testing so break out.
             if(intRemainder == 0 && j != intNumberToTest && j != 1) // Need to exclude divisible by one
                                                                     // means we can't test 1 here, hence
                                                                     // special case later
             {
-                cout << intNumberToTest << " is not prime" << endl;
                 break;
             }
+            // Second case: is prime because number we're dividing by (j)
+            // and number we're testing (intNumberToTest) are the same
             else if(intRemainder == 0 && j == intNumberToTest && j != 1)
             {
-                cout << intNumberToTest << " is prime" << endl;
+                // Append to vector
+                refPrimes.emplace_back(intNumberToTest);
             }
         }
         else
         {
-           cout << "1 is prime\n"; // Special case for first number not accounted for by loop
+            // Special case for first number not accounted for by loop
+            refPrimes.emplace_back(intNumberToTest);
         }
     }
 }
 
+// This function is used to print all the prime numbers
+// in the range searched through
+void printPrimes(const vector<int> vecPrimes)
+{
+    for(int i = 0 ; i < int(vecPrimes.size()) ; i++)
+    {
+        cout << vecPrimes[i] << endl;
+    }
+}
