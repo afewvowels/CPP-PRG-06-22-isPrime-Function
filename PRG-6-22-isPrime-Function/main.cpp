@@ -82,7 +82,5 @@ void testPrime(int intNumberToTest)
            cout << "1 is prime\n"; // Special case for first number not accounted for by loop
         }
     }
-    
-    return false;
 }
 
