@@ -21,28 +21,40 @@
 
 using namespace std;
 
-bool testPrime(int);
+// Simple, function tests number then returns
+// true/false based on outcome of the test
+void testPrime(int);
 
 int main() {
     
-    bool isPrime;
+    // Declare empty to hold testPrime(int) result
+    // bool isPrime;
     
+    // Define highest number to test here,
+    // in this case (according to the prompt)
+    // it's just 100. Easy to modify.
+    const int INT_HIGHEST_NUM_TO_TEST = 100;
+    
+    // Declare number to test and pass along
+    // to testPrime(int)
     int intNumberToTest;
     
-    
+    // Define intNumberToTest in this for loop.
     // Loop to test integers 1 through 100,
     // will return true/false isPrime for this range
-    for(int i = 0 ; i <= 100 ; i++)
+    for(int i = 0 ; i <= INT_HIGHEST_NUM_TO_TEST ; i++)
     {
         intNumberToTest = i;
         
-        isPrime = testPrime(intNumberToTest);
+        // isPrime = testPrime(intNumberToTest);
+        
+        testPrime(intNumberToTest);
     }
     
     return 0;
 }
 
-bool testPrime(int intNumberToTest)
+void testPrime(int intNumberToTest)
 {
     int intRemainder;
     
